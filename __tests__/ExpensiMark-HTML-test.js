@@ -1409,3 +1409,19 @@ test('Test strikethrough with link with URL that contains tilde', () => {
     testString = '~[Example Link](https://example.com/?~example=~~~ex~)~';
     expect(parser.replace(testString)).toBe('<del><a href="https://example.com/?~example=~~~ex~" target="_blank" rel="noreferrer noopener">Example Link</a></del>');
 });
+test('Mention', () => {
+    let testString = '@user@domain.com';
+    expect(parser.replace(testString)).toBe('<mention-user>@user@domain.com</mention-user>');
+
+    testString = '@USER@DOMAIN.COM';
+    expect(parser.replace(testString)).toBe('<mention-user>@user@domain.com</mention-user>');
+
+    testString = '@USER@domain.com';
+    expect(parser.replace(testString)).toBe('<mention-user>@user@domain.com</mention-user>');
+
+    testString = '@user@DOMAIN.com';
+    expect(parser.replace(testString)).toBe('<mention-user>@user@domain.com</mention-user>');
+
+    testString = '@user@DOMAIN.com';
+    expect(parser.replace(testString)).toBe('<mention-user>@user@domain.com</mention-user>');
+});
